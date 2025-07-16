@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AUNTIE MILLIE'S CRUNCHY FRIES</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-green-700 text-white p-4 flex justify-between">
+    <div class="text-xl font-bold">AUNTIE MILLIE'S CRUNCHY FRIES</div>
+    <ul class="flex gap-4">
+      <li><a href="#home" class="hover:underline">Home</a></li>
+      <li><a href="#products" class="hover:underline">Products</a></li>
+      <li><a href="#about" class="hover:underline">About</a></li>
+      <li><a href="#contact" class="hover:underline">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="p-8 bg-yellow-50 text-center">
+    <h1 class="text-4xl font-bold mb-4">Fresh, Crunchy Yam Delights Delivered to You</h1>
+    <p class="text-lg">Taste the crunch! Delicious yam fries, drinks & meals freshly made for you.</p>
+    <a href="#products" class="mt-6 inline-block bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">Shop Now</a>
+  </section>
+
+ <!-- Products Section -->
+  <section id="products" class="p-8 bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="border p-4 rounded shadow">
+      <img src="voltic water.jpg" alt="Voltic Water" />
+      <h3 class="text-xl font-semibold">Voltic Water (50cl)</h3>
+      <p>₵15 / bottle</p>
+    </div>
+
+    <div class="border p-4 rounded shadow">
+      <img src="drinks.jpg" alt="Soft Drinks" />
+      <h3 class="text-xl font-semibold">Soft Drinks</h3>
+      <p>₵25 / bottle</p>
+    </div>
+
+    <div class="border p-4 rounded shadow">
+      <img src="Ghanaian-Kelewele-fried-plantains-recipe.jpeg" alt="Fried Plantains" />
+      <h3 class="text-xl font-semibold">Fried Plantain (Kelewele)</h3>
+      <p>₵60 / pack</p>
+    </div>
+
+    <div class="border p-4 rounded shadow">
+      <img src="3.jpeg" alt="Yam Fries with Gizzard & Sausage" />
+      <h3 class="text-xl font-semibold">Yam Fries with Gizzard & Sausage</h3>
+      <p>₵85 / plate</p>
+    </div>
+
+    <div class="border p-4 rounded shadow">
+      <img src="yam chicken.jpg" alt="Yam Fries and Chicken Wings" />
+      <h3 class="text-xl font-semibold">Chicken Wings with Yam Fries & Sauce</h3>
+      <p>₵120 / plate</p>
+    </div>
+  </section>
+    </div>
+  </section>
+ <!-- Order Form -->
+  <section class="max-w-2xl mx-auto my-10 bg-yellow-50 p-6 rounded shadow">
+    <h2 class="text-xl font-bold mb-4 text-center">Place Your Order</h2>
+    <form id="orderForm" class="space-y-4">
+      <div>
+        <label for="name" class="block font-semibold">Name</label>
+        <input type="text" id="name" name="name" class="w-full p-2 border rounded" required />
+      </div>
+
+      <div>
+        <label for="phone" class="block font-semibold">Phone</label>
+        <input type="tel" id="phone" name="phone" class="w-full p-2 border rounded" required />
+         </div>
+
+      <div>
+        <label class="block font-semibold">Select Items</label>
+        <div class="space-y-2">
+          <div class="flex justify-between">
+            <span>Voltic Water (₵15)</span>
+            <input type="number" name="Voltic Water" class="w-20 border rounded text-center quantity" min="0" value="0" data-price="15" />
+          </div>
+          <div class="flex justify-between">
+            <span>Soft Drinks (₵25)</span>
+            <input type="number" name="Soft Drinks" class="w-20 border rounded text-center quantity" min="0" value="0" data-price="25" />
+          </div>
+          <div class="flex justify-between">
+            <span>Fried Plantain (₵60)</span>
+            <input type="number" name="Fried Plantain" class="w-20 border rounded text-center quantity" min="0" value="0" data-price="60" />
+          </div>
+          <div class="flex justify-between">
+            <span>Yam Fries with Gizzard & Sausage (₵85)</span>
+            <input type="number" name="Yam Fries with Gizzard" class="w-20 border rounded text-center quantity" min="0" value="0" data-price="85" />
+          </div>
+          <div class="flex justify-between">
+            <span>Chicken Wings & Yam Fries (₵120)</span>
+            <input type="number" name="Chicken Wings & Fries" class="w-20 border rounded text-center quantity" min="0" value="0" data-price="120" />
+          </div>
+          <div>
+        <label for="address" class="block font-semibold">Delivery Address</label>
+        <input type="text" id="address" name="address" class="w-full p-2 border rounded" required />
+      </div>
+
+      <div class="text-right font-bold text-lg">
+        Total: ₵<span id="totalPrice">0</span>
+      </div>
+
+      <button type="button" id="payNow" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">
+        Pay Now
+      </button>
+    </form>
+  </section>
+  <script>
+    const form = document.getElementById('orderForm');
+    const quantities = document.querySelectorAll('.quantity');
+    const totalPriceSpan = document.getElementById('totalPrice');
+
+    function calculateTotal() {
+      let total = 0;
+      quantities.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const price = parseInt(input.dataset.price);
+        total += qty * price;
+      });
+      totalPriceSpan.textContent = total;
+      return total;
+    }
+
+    quantities.forEach(input => {
+      input.addEventListener('input', calculateTotal);
+    });
+
+    document.getElementById('payNow').addEventListener('click', function () {
+      const name = form.name.value.trim();
+      const phone = form.phone.value.trim();
+      const address = form.address.value.trim();
+      const items = [];
+      const qtys = [];
+
+      quantities.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        if (qty > 0) {
+          items.push(input.name);
+          qtys.push(qty);
+        }
+      });
+
+      const total = calculateTotal();
+
+      if (!name || !phone || !address || total === 0) {
+        alert('Please complete the form and select at least one item.');
+        return;
+      }
+
+      const paystackHandler = PaystackPop.setup({
+        key: 'pk_test_eef7744c910313dd1d6d17639cfa378e7cbfe86a', 
+        email: phone + '@example.com',
+        amount: total * 100,
+        currency: 'GHS',
+        callback: function (response) {
+          submitOrder(name, phone, address, items, qtys, total);
+        },
+        onClose: function () {
+          alert('Payment window closed');
+        }
+      });
+      paystackHandler.openIframe();
+    });
+
+    async function submitOrder(name, phone, address, items, qtys, total) {
+      const data = {
+        name,
+        phone,
+        address,
+        items: items.join(', '),
+        quantities: qtys.join(', '),
+        total,
+        status: 'Order Placed'
+      };
+
+      try {
+        const res = await fetch('https://script.google.com/macros/s/AKfycbxpIURF2DRHlqkZwYZgx40yKpmsaS1J5pzhl9TYey0b5WuJjamjXDdSSHYMvHtCN_nW/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert('Order submitted successfully!');
+          form.reset();
+          calculateTotal();
+        } else {
+          alert('Failed to submit order. Please try again.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error submitting order.');
+      }
+    }
+  </script>
+
+  <!-- CONTACT & LOCATION -->
+<section class="bg-green-100 py-10 px-6 mt-10">
+  <h2 class="text-3xl font-bold text-center text-green-800 mb-8 uppercase">
+    CONTACT & LOCATION
+  </h2>
+
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- Contact Info -->
+    <div class="space-y-4 text-lg">
+      <div>
+        <h3 class="font-semibold text-xl">📞 Phone</h3>
+        <p>+233 20 150 2292</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-xl">📧 Email</h3>
+        <p>auntiemillie2@gmail.com</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-xl">📍 Address</h3>
+        <p>Close to Asanka Local, near UPSA, Accra, Ghana</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-xl">🕒 Opening Hours</h3>
+        <p>
+          Monday – Saturday: 10:00 AM – 10:00 PM<br />
+          Sunday: 12:00 PM – 8:00 PM
+        </p>
+      </div>
+
+      <div class="space-x-3 pt-4">
+        <a
+          href="https://wa.me/233201502292"
+          target="_blank"
+          class="inline-block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+        >
+          💬 Chat on WhatsApp
+        </a>
+        <a
+          href="tel:+233201502292"
+          class="inline-block bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded"
+        >
+          📞 Call Now
+        </a>
+        <a
+          href="mailto:crunchyfries@example.com"
+          class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded"
+        >
+          📧 Send Email
+        </a>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="bg-white p-6 rounded shadow">
+      <form class="space-y-4" name="contact-form" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact-form" />
+        <div>
+          <label class="block font-semibold">Name</label>
+          <input type="text" name="name" required class="w-full p-2 border rounded" />
+        </div>
+        <div>
+          <label class="block font-semibold">Email</label>
+          <input type="email" name="email" required class="w-full p-2 border rounded" />
+        </div>
+        <div>
+          <label class="block font-semibold">Message</label>
+          <textarea name="message" rows="4" required class="w-full p-2 border rounded"></textarea>
+        </div>
+        <button
+          type="submit"
+          class="bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded w-full"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Google Map -->
+  <div class="mt-10 rounded shadow overflow-hidden max-w-5xl mx-auto">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1981.8795826905854!2d-0.1717336842092128!3d5.637174834079226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfe109e5292a6e17%3A0x3970eb4d48ed44b7!2sAsanka%20Local%2C%20Accra!5e0!3m2!1sen!2sgh!4v1721051199406!5m2!1sen!2sgh"
+      width="100%"
+      height="350"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+</section>
+
+<!-- Floating WhatsApp Button -->
+<a
+  href="https://wa.me/233201502292"
+  class="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-full shadow-lg z-50 text-lg"
+  target="_blank"
+  title="Chat with us on WhatsApp"
+>
+  💬
+</a>
+
+</body>
+</html>
